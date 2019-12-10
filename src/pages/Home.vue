@@ -33,13 +33,14 @@ export default {
         }
     },
     created() {
-        const url = `${window.location.href}data.json`
-        axios.get(url)
-            .then(res => {
-                this.candidates = res.data
-            })
+        this.getCandidates()
     },
     methods: {
+        async getCandidates(){
+            const url = `${window.location.href}data.json`
+            const request = await axios.get(url)
+            this.candidates = request.data
+        },
         openCard(candidate) {
             this.$store.commit('SET_CARD_VISABILITY', true)
             this.$store.commit('SET_CANDIDAT', candidate)
